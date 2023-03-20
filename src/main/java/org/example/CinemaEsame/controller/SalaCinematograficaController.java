@@ -2,25 +2,33 @@ package org.example.CinemaEsame.controller;
 
 import org.example.CinemaEsame.model.SalaCinematografica;
 import org.example.CinemaEsame.repository.SalaCinematograficaRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.CinemaEsame.service.SalaCinematograficaService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/sala")
 public class SalaCinematograficaController {
-    private SalaCinematograficaRepository salaCinematograficaRepository;
+    private SalaCinematograficaService salaCinematograficaService;
 
-    public SalaCinematograficaController(SalaCinematograficaRepository salaCinematograficaRepository) {
-        this.salaCinematograficaRepository = salaCinematograficaRepository;
+    public SalaCinematograficaController(SalaCinematograficaService salaCinematograficaService) {
+        this.salaCinematograficaService = salaCinematograficaService;
     }
 
     @GetMapping("/{id}")
     public Optional<SalaCinematografica> getById(@PathVariable int id) {
-        return salaCinematograficaRepository.findById(id);
+        return salaCinematograficaService.getById(id);
 
+    }
+
+    @DeleteMapping("/deleteall")
+    public Boolean deleteAll(){
+        return salaCinematograficaService.removeAll();
+    }
+
+    @PostMapping("/insert")
+    public SalaCinematografica insert(@RequestBody SalaCinematografica salaCinematografica){
+        return salaCinematograficaService.insert(salaCinematografica.getIdFilm(), salaCinematografica.getIdCinema());
     }
 }
