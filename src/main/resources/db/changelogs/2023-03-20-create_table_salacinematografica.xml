@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2023-03-20-create_table_salacinematografica-001" author="adrian">
+        <comment>CREATE TABLE SALA CINEMATOGRAFICA</comment>
+        <createTable tableName="salacinematografica">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_salacinematografica" />
+            </column>
+            <column name="idflim" type="BIGINT">
+                <constraints foreignKeyName="fk_sala" references="film(id)"/>
+            </column>
+            <column name="idcinema" type="BIGINT">
+                <constraints foreignKeyName="fk_salaa" references="cinema(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="salacinematografica" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2023-03-20-create_table_salacinematografica-002" author="adrian">
+        <addNotNullConstraint tableName="salacinematografica" columnName="idflim" columnDataType="BIGINT" />
+        <rollback>
+            <dropNotNullConstraint tableName="salacinematografica" columnName="idflim" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2023-03-20-create_table_salacinematografica-003" author="adrian">
+        <addNotNullConstraint tableName="salacinematografica" columnName="idcinema" columnDataType="BIGINT" />
+        <rollback>
+            <dropNotNullConstraint tableName="salacinematografica" columnName="idcinema" />
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>

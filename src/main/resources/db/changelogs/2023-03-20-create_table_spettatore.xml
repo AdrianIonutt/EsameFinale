@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2023-03-20-create_table_spettatore-001" author="adrian">
+        <comment>CREATE TABLE SPETTATORE</comment>
+        <createTable tableName="spettatore">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_spettatore" />
+            </column>
+            <column name="nome" type="VARCHAR(100)" />
+            <column name="cognome" type="VARCHAR(100)" />
+            <column name="dataNascita" type="BIGINT" />
+            <column name="idbiglietto" type="BIGINT">
+                <constraints foreignKeyName="fk_spettatore" nullable="false" references="biglietto(id)"/>
+            </column>
+            <column name="idsala" type="BIGINT" >
+                <constraints foreignKeyName="fk_spettatoree" nullable="false" references="salacinematografica(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="spettatore" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2023-03-20-create_table_spettatore-002" author="adrian">
+        <addNotNullConstraint tableName="spettatore" columnName="nome" columnDataType="VARCHAR(100)" />
+        <rollback>
+            <dropNotNullConstraint tableName="spettatore" columnName="nome" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2023-03-20-create_table_spettatore-003" author="adrian">
+        <addNotNullConstraint tableName="spettatore" columnName="cognome" columnDataType="VARCHAR(100)" />
+        <rollback>
+            <dropNotNullConstraint tableName="spettatore" columnName="cognome" />
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="2023-03-20-create_table_spettatore-004" author="adrian">
+        <addNotNullConstraint tableName="spettatore" columnName="dataNascita" columnDataType="BIGINT" />
+        <rollback>
+            <dropNotNullConstraint tableName="spettatore" columnName="dataNascita" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2023-03-20-create_table_spettatore-005" author="adrian">
+        <addNotNullConstraint tableName="spettatore" columnName="idbiglietto" columnDataType="BIGINT" />
+        <rollback>
+            <dropNotNullConstraint tableName="spettatore" columnName="idbiglietto" />
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="2023-03-20-create_table_spettatore-006" author="adrian">
+        <addNotNullConstraint tableName="spettatore" columnName="idsala" columnDataType="BIGINT" />
+        <rollback>
+            <dropNotNullConstraint tableName="spettatore" columnName="idsala" />
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>
